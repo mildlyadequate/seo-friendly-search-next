@@ -2,7 +2,7 @@ export async function fetchNames() {
 
     let result: string[] = [];
 
-    await Promise.all([0].map(id =>
+    await Promise.all([0,1,2,3,4].map(id =>
         fetch(`https://random-data-api.com/api/name/random_name?size=100`).then(resp => resp.json())
     )).then(json => {
 

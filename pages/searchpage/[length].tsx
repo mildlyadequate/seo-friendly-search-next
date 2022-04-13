@@ -24,7 +24,8 @@ const SearchPage: NextPage<Props> = ({ result }) => {
 }
 
 export async function getStaticPaths() {
-    const result = await fetchNames();
+    let result = await fetchNames();
+    result = result.slice(0,10);
     return {
         paths: result.map((name, i) => {
             return {
