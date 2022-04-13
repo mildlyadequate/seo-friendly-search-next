@@ -13,7 +13,7 @@ const SearchPage: NextPage<Props> = ({ result }) => {
     const router = useRouter()
     const { length } = router.query
 
-    let lengthVal = 5000;
+    let lengthVal = 1000;
     if(typeof length === "string") lengthVal = parseInt(length)
 
     return (
