@@ -1,14 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
 type Props = {
-    result: string[]
+    result: string[],
+    length?: number
 }
 
-const Content = ({ result }: Props) => {
+const Content = ({ result,length }: Props) => {
     const [searchText, setSearchText] = useState("");
     const [showAll, setShowAll] = useState(false);
 
-    const inputRefs = useMemo(() => Array(result.length).fill(0).map(i => React.createRef<HTMLDivElement>()), []);
+    if(typeof length === "number"){
+        result = result.slice(0,length);
+    }
+
+    const inputRefs = useMemo(() => Array(result.length).fill(0).map(i => React.createRef<HTMLDivElement>()), [result.length]);
 
     useEffect(() => {
 
@@ -22,7 +27,7 @@ const Content = ({ result }: Props) => {
 
         })
 
-    }, [searchText, showAll])
+    }, [searchText, showAll, inputRefs, result])
     return (
         <div className='flex flex-col gap-4 p-8 w-1/3'>
 
@@ -40,7 +45,7 @@ const Content = ({ result }: Props) => {
                         result.map((data, i) => (
                             <div key={i} ref={inputRefs[i]} className={`flex flex-col bg-slate-800 p-2 cursor-pointer hover:bg-slate-700 rounded group`}>
                                 <a className='text-white group-hover:text-green-500'>{data}</a>
-                                <span className='text-slate-400'>Position {i} in der Liste.</span>
+                                <span className='text-slate-400'>Position {i+1} in der Liste.</span>
                             </div>
                         ))
                     }
